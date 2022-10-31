@@ -1,0 +1,10 @@
+{
+    "name": "oleg/framework",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    },
+    "require": {}
+}
