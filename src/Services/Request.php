@@ -1,9 +1,9 @@
 <?php
 namespace App\Services;
 
-use Exception;
+use App\Services\Interfaces\RequestInterface;
 
-class Request 
+class Request implements RequestInterface
 {
     public const GET = 'get';
     
@@ -24,10 +24,10 @@ class Request
      */
     private string $route = '';
 
-    public function __construct()
+    public function __construct(array $serverParams)
     {
-        $this->method = $this->initMethod();
-        $this->route = $_SERVER['REQUEST_URI'];
+        $this->method = $this->initMethod($serverParams);
+        $this->route = $serverParams['REQUEST_URI'];
     }
 
     public function getMethod(): string
@@ -37,12 +37,12 @@ class Request
 
     public function getRoute(): string
     {
-        return $this->route;
+        return preg_replace('/\/$/', '', $this->route);
     }
 
-    private function initMethod(): string
+    private function initMethod(array $serverParams): string
     {
-        $method =  strtolower($_SERVER['REQUEST_METHOD']);
+        $method = strtolower($serverParams['REQUEST_METHOD']);
 
         if (in_array($method, self::ALLOWED_METHODS)) {
             return $method;

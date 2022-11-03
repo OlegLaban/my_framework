@@ -5,7 +5,8 @@ class Application
 {
     public function run(Router $router): string
     {
-        $callable = $router->resolve();
-        return call_user_func($callable);
+        $collableParams = $router->resolve();
+
+        return call_user_func_array($collableParams['callable'], $collableParams['params']);
     }
 }
