@@ -22,7 +22,7 @@ $router->addGet(new Route('/todo/{id}'), function () {
     return 'Logic for get single todo';
 });
 
-$router->addGet(new Route('/todo/{id}/todoitem/{name}'), function () {
+$router->addGet(new Route('/todo/{id}/todoitem/{name}'), function (int $id, string $name) {
     return 'Logic for action with many parameters';
 });
 
